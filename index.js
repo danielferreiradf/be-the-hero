@@ -1,9 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const routes = require("./routes");
 
-const server = express();
+const app = express();
 
-server.use(express.json());
-server.use(routes);
+app.use(cors());
+app.use(express.json());
+app.use(routes);
 
-server.listen(5000);
+app.listen(5000);
