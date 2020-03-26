@@ -17,5 +17,37 @@ module.exports = {
     } catch (error) {
       console.error(error.message);
     }
+  },
+  async getAll(req, res) {
+    try {
+      const incidents = await connection("incidents").select("*");
+
+      return res.json(incidents);
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const { ong_id } = req.headers.authorization;
+
+      const incident = await connection("incidents")
+        .where("id", id)
+        .select("ong_id")
+        .first();
+
+      if (incident.ong_id !== ong_id) {
+        return res.status(401).json({ error: "Operation not allowed." });
+      }
+
+      await connection("incidets")
+        .where("id", id)
+        .delete();
+
+      return res.status(204).send();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 };

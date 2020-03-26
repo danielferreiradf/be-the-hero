@@ -28,7 +28,7 @@ module.exports = {
     try {
       const ongs = await connection("ongs").select("*");
 
-      res.json(ongs);
+      return res.json(ongs);
     } catch (error) {
       console.error(error.message);
     }
