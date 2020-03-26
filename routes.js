@@ -2,12 +2,16 @@ const Router = require("express").Router;
 
 const OngController = require("./controllers/OngController");
 const IncidentController = require("./controllers/IncidentController");
+const ProfileController = require("./controllers/ProfileController");
 
 const routes = Router();
 
 // Ongs
 routes.post("/ongs", OngController.create);
 routes.get("/ongs", OngController.getAll);
+
+// Profile
+routes.get("/profile", ProfileController.get);
 
 // Incidents
 routes.post("/incidents", IncidentController.create);
